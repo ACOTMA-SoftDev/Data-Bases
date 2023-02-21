@@ -1,3 +1,17 @@
+/** 
+Credenciales para conectarse a la interfaz del host gratuito
+user: ACOTMADB
+password: 4coT348d35T4D145
+
+Credenciales para conectarse remotamente a la base de datos
+
+user: ACOTMADB_SQLLogin_1
+password: gfs1n5hg6n
+**/
+
+
+
+
 use master
 drop database ACOTMADB
 go
@@ -72,3 +86,4 @@ references horarioServicio(corrida,fecha)
 go
 
 drop table asignacion,verificacionSalida,horarioServicio,verificacionDia,estado,usuarios
+
