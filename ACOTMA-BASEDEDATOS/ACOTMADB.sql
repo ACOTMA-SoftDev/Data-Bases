@@ -1,4 +1,7 @@
 /** 
+url para entrar al host gratuito
+https://somee.com/DOKA/Identity/Account/Login?ReturnUrl=%2FDOKA%2FDOU
+
 Credenciales para conectarse a la interfaz del host gratuito
 user: ACOTMADB
 password: 4coT348d35T4D145
@@ -7,6 +10,9 @@ Credenciales para conectarse remotamente a la base de datos
 
 user: ACOTMADB_SQLLogin_1
 password: gfs1n5hg6n
+
+
+
 **/
 
 
