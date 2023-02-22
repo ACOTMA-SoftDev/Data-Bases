@@ -8,29 +8,29 @@ use ACOTMADB
 go
 create table permisos(
 idPermiso int not null primary key identity(1,1),
-permiso nvarchar
+permiso varchar(100)
 );
 go
 create table usuarios(
-usuario nvarchar not null primary key,
-nombre nvarchar,
-apellidoP nvarchar,
-apellidoM nvarchar,
-pass nvarchar not null,
+usuario varchar(100) not null primary key,
+nombre varchar(100),
+apellidoP varchar(100),
+apellidoM varchar(100),
+pass varchar(100) not null,
 fkPermiso int,
 constraint fkPermisoUsuario foreign key (fkPermiso)references permisos(idPermiso));
 go
 create table estado(
 idEstado int not null primary key identity(1,1),
-numEstado nvarchar,
+numEstado varchar(100),
 );
 go
 create table verificacionDia(
 idVerificacionDia int not null primary key identity(1,1),
 noUnidad int,
-observaciones nvarchar,
+observaciones varchar(1000),
 fecha date,
-fkUsuario nvarchar,
+fkUsuario varchar(100),
 fkEstado int,
 constraint fkUsuarioVerificacionDia foreign key(fkUsuario)references 
 usuarios(usuario),
@@ -40,35 +40,40 @@ go
 create table horarioServicio(
 corrida int not null,
 fecha date not null,
-ruta nvarchar,
+ruta varchar(100),
 horarioSalida time(0),
 constraint pkHorarioServicio primary key(corrida,fecha)
 );
 go
-create table verificacionSalida(
-idVerificacionSalida int not null primary key identity(1,1),
-estado varchar(10),
-observaciones nvarchar,
-fechaSalida date,
-fkusuario nvarchar,
-constraint fkUsuarioVerificacionSalida foreign key(fkusuario)references usuarios(usuario)
-);
-go
-
 Create table asignacion(
 idAsignacion int not null primary key identity(1,1),
 tipoUnidad varchar(50),
 economico int,
 tarjeton int,
 nomChofer varchar(100),
-fkVerificacionSalida int,
 fkCorrida int,
 fkFecha date,
-constraint fkVerificacionSalidaAsignacion foreign key(fkVerificacionSalida)
-references verificacionSalida(idVerificacionSalida),
 constraint fkHorarioAsignacion foreign key(fkCorrida,fkFecha)
 references horarioServicio(corrida,fecha)
 );
 go
+create table verificacionSalida(
+idVerificacionSalida int not null primary key identity(1,1),
+estado varchar(100),
+observaciones varchar(100),
+fechaSalida date,
+fkusuario varchar(100),
+fkasignacion int,
+constraint fkAsignacionSalida foreign key (fkasignacion) references asignacion(idAsignacion),
+constraint  fkUsuarioVerificacionSalida foreign key(fkusuario)references usuarios(usuario));
+go
+
+
 
 drop table asignacion,verificacionSalida,horarioServicio,verificacionDia,estado,usuarios
+
+
+
+
+
+
