@@ -7,7 +7,7 @@ user: ACOTMADB
 password: 4coT348d35T4D145
 
 Credenciales para conectarse remotamente a la base de datos
-
+domain: ACOTMADB.mssql.somee.com
 user: ACOTMADB_SQLLogin_1
 password: gfs1n5hg6n
 
@@ -34,23 +34,19 @@ apellidoM varchar(100),
 pass varchar(100) not null,
 fkPermiso int,
 constraint fkPermisoUsuario foreign key (fkPermiso)references permisos(idPermiso));
-go
-create table estado(
-idEstado int not null primary key identity(1,1),
-numEstado varchar(100),
-);
+
 go
 create table verificacionDia(
 idVerificacionDia int not null primary key identity(1,1),
-noUnidad int,
+tipoUnidad varchar(100),
+economico int,
+noTarjeton int,
+ruta varchar(100),
 observaciones varchar(1000),
 fecha date,
-fkUsuario varchar(100),
-fkEstado int,
+fkUsuario varchar(100) not null,
 constraint fkUsuarioVerificacionDia foreign key(fkUsuario)references 
-usuarios(usuario),
-constraint fkEstadoVerificacionDia foreign key(fkEstado)references
-estado(idEstado));
+usuarios(usuario))
 go
 create table horarioServicio(
 corrida int not null,
@@ -373,66 +369,66 @@ select * from asignacion
 insert into asignacion(tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 45 , 109,'RAMOS DURAN CARLOS MANUEL',103,CONVERT(date,'13-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 46 , 267,'MARTINEZ MONTAÑO FLORENTINO ESMEREGILDO',104,CONVERT(date,'13-02-2023',105))
+values('Gran Vial', 46 , 267,'MARTINEZ MONTAï¿½O FLORENTINO ESMEREGILDO',104,CONVERT(date,'13-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 33 , 184,'FUENTES LOPEZ JUAN JOSE',105,CONVERT(date,'13-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 02 , 110,'SÁNCHEZ BAUTISTA ERNESTO',106,CONVERT(date,'13-02-2023',105))
+values('Gran Vial', 02 , 110,'Sï¿½NCHEZ BAUTISTA ERNESTO',106,CONVERT(date,'13-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 47 , 036,'GARCÍA CANO ERNESTO',107,CONVERT(date,'13-02-2023',105))
+values('Gran Vial', 47 , 036,'GARCï¿½A CANO ERNESTO',107,CONVERT(date,'13-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 43 , 067,'MARTÍNEZ JIMÉNEZ ALEJANDRO',108,CONVERT(date,'13-02-2023',105))
+values('Gran Vial', 43 , 067,'MARTï¿½NEZ JIMï¿½NEZ ALEJANDRO',108,CONVERT(date,'13-02-2023',105))
 --14-02-23
 --T-01
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 33 , 184,'FUENTES LOPEZ JUAN JOSE',103,CONVERT(date,'14-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 46 , 024,'CABAÑAS GARCÍA AGUSTÍN',104,CONVERT(date,'14-02-2023',105))
+values('Gran Vial', 46 , 024,'CABAï¿½AS GARCï¿½A AGUSTï¿½N',104,CONVERT(date,'14-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 45 , 039,'BARAJAS OLMOS GUSTAVO',105,CONVERT(date,'14-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 02 , 110,'SÁNCHEZ BAUTISTA ERNESTO',106,CONVERT(date,'14-02-2023',105))
+values('Gran Vial', 02 , 110,'Sï¿½NCHEZ BAUTISTA ERNESTO',106,CONVERT(date,'14-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 47 , 036,'FUENTES LOPEZ JUAN JOSE',107,CONVERT(date,'14-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', NULL , NULL,NULL,108,CONVERT(date,'14-02-2023',105))
 --15-02-23
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 47 , 036,'GARCÍA CANO ERNESTO',103,CONVERT(date,'15-02-2023',105))
+values('Gran Vial', 47 , 036,'GARCï¿½A CANO ERNESTO',103,CONVERT(date,'15-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 46 , 267,'MARTINEZ MONTAÑO FLORENTINO ESMEREGILDO',104,CONVERT(date,'15-02-2023',105))
+values('Gran Vial', 46 , 267,'MARTINEZ MONTAï¿½O FLORENTINO ESMEREGILDO',104,CONVERT(date,'15-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 18 , 188,'LANGO AVILEZ ISRAEL',105,CONVERT(date,'15-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 05 , 008,'SANTILLAN VÁZQUEZ GLADIS',106,CONVERT(date,'15-02-2023',105))
+values('Gran Vial', 05 , 008,'SANTILLAN Vï¿½ZQUEZ GLADIS',106,CONVERT(date,'15-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 45 , 020,'BONILLA CABAÑAS ALEJANDRO',107,CONVERT(date,'15-02-2023',105))
+values('Gran Vial', 45 , 020,'BONILLA CABAï¿½AS ALEJANDRO',107,CONVERT(date,'15-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 35 , 048,'BONILLA CABAÑAS ALEJANDRO',108,CONVERT(date,'15-02-2023',105))
+values('Gran Vial', 35 , 048,'BONILLA CABAï¿½AS ALEJANDRO',108,CONVERT(date,'15-02-2023',105))
 --16-02-23
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 07 , 034,'PEREZ CASTAÑEDA TOMAS',103,CONVERT(date,'16-02-2023',105))
+values('Gran Vial', 07 , 034,'PEREZ CASTAï¿½EDA TOMAS',103,CONVERT(date,'16-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 47 , 036,'GARCÍA CANO ERNESTO',104,CONVERT(date,'16-02-2023',105))
+values('Gran Vial', 47 , 036,'GARCï¿½A CANO ERNESTO',104,CONVERT(date,'16-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 30 , 110,'SÁNCHEZ BAUTISTA ERNESTO',105,CONVERT(date,'16-02-2023',105))
+values('Gran Vial', 30 , 110,'Sï¿½NCHEZ BAUTISTA ERNESTO',105,CONVERT(date,'16-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 46 , 267,'MARTINEZ MONTAÑO FLORENTINO ESMEREGILDO',106,CONVERT(date,'16-02-2023',105))
+values('Gran Vial', 46 , 267,'MARTINEZ MONTAï¿½O FLORENTINO ESMEREGILDO',106,CONVERT(date,'16-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 45 , 039,'GARCÍA CANO ERNESTO',107,CONVERT(date,'16-02-2023',105))
+values('Gran Vial', 45 , 039,'GARCï¿½A CANO ERNESTO',107,CONVERT(date,'16-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 05 , 008,'SANTILLAN VÁZQUEZ GLADIS',108,CONVERT(date,'16-02-2023',105))
+values('Gran Vial', 05 , 008,'SANTILLAN Vï¿½ZQUEZ GLADIS',108,CONVERT(date,'16-02-2023',105))
 --17-02-23
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 46 , 143,'ISLAS FLORES JOSÉ',103,CONVERT(date,'17-02-2023',105))
+values('Gran Vial', 46 , 143,'ISLAS FLORES JOSï¿½',103,CONVERT(date,'17-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 13 , 546,'LÓPEZ BAUTISTA ASUNCIÓN ALFONSO',104,CONVERT(date,'17-02-2023',105))
+values('Gran Vial', 13 , 546,'Lï¿½PEZ BAUTISTA ASUNCIï¿½N ALFONSO',104,CONVERT(date,'17-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 02 , 110,'SÁNCHEZ BAUTISTA ERNESTO',105,CONVERT(date,'17-02-2023',105))
+values('Gran Vial', 02 , 110,'Sï¿½NCHEZ BAUTISTA ERNESTO',105,CONVERT(date,'17-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 47 , 036,'GARCÍA CANO ERNESTO',106,CONVERT(date,'17-02-2023',105))
+values('Gran Vial', 47 , 036,'GARCï¿½A CANO ERNESTO',106,CONVERT(date,'17-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
-values('Gran Vial', 45 , 020,'BONILLA CABAÑAS ALEJANDRO',107,CONVERT(date,'17-02-2023',105))
+values('Gran Vial', 45 , 020,'BONILLA CABAï¿½AS ALEJANDRO',107,CONVERT(date,'17-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 05 , 358,'MENESES MENDOZA EDUARDO ',108,CONVERT(date,'17-02-2023',105))
 
