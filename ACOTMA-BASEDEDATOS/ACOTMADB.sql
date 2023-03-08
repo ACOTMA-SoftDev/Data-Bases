@@ -21,6 +21,7 @@ create database ACOTMADB
 go
 use ACOTMADB
 go
+
 create table permisos(
 idPermiso int not null primary key identity(1,1),
 permiso varchar(100)
@@ -43,7 +44,8 @@ economico int,
 noTarjeton int,
 ruta varchar(100),
 observaciones varchar(1000),
-fecha date,
+fecha datetime,
+hora time,
 fkUsuario varchar(100) not null,
 constraint fkUsuarioVerificacionDia foreign key(fkUsuario)references 
 usuarios(usuario))
@@ -72,12 +74,57 @@ create table verificacionSalida(
 idVerificacionSalida int not null primary key identity(1,1),
 estado varchar(100),
 observaciones varchar(100),
-fechaSalida date,
+horaSalida time(0),
 fkusuario varchar(100),
 fkasignacion int,
 constraint fkAsignacionSalida foreign key (fkasignacion) references asignacion(idAsignacion),
 constraint  fkUsuarioVerificacionSalida foreign key(fkusuario)references usuarios(usuario));
 go
+
+create table Informe_Limpieza (
+	IdInformeLimpieza INT PRIMARY KEY NOT NULL identity(1,1),
+	Fecha_Limpieza DATE NOT NULL,
+	Estación VARCHAR(50),
+	LimpiezaPiso VARCHAR(5),
+	LimpiezaVidrio VARCHAR(5),
+	LimpiezaAreaServicios VARCHAR(5),
+	LimpiezaAreaEstructura VARCHAR(5),
+	LimpiezaTorniquetes VARCHAR(5),
+	LimpiezaSanitarios VARCHAR(5),
+	Observaciones VARCHAR(1000),
+    Usuario VARCHAR (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
+        
+);
+create table Informe_Percances (
+	id_Percance INT PRIMARY KEY NOT NULL identity(1,1),
+	Fecha_Percance DATE NOT NULL,
+	NoEconomico INT,
+	ServicioRuta VARCHAR(100),
+	TipoUnidad VARCHAR(50),
+	Marca VARCHAR(50),
+	Modelo VARCHAR(50),
+	Color VARCHAR(50),
+	Placas VARCHAR(50),
+	Conductor VARCHAR(50),
+	Tarjeton INT,
+	Descripcion VARCHAR(2000),
+	Ubicacion VARCHAR(200),
+	Hora TIME,
+	Fotos image,
+	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
+);
+
+create table Informe_incidencias_tecnologicas (
+	ID_InformeIncidencias INT PRIMARY KEY NOT NULL identity(1,1),
+	Fecha_incidencia DATE NOT NULL,
+	Hora_de_registro TIME,
+	Servicio VARCHAR(200),
+	VehiculoECO VARCHAR(40),
+	Equipo_afectado VARCHAR(100),
+	Falla VARCHAR(50),
+	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
+);
+
 
 
 --INSERTAR EN TABLAS--
@@ -431,6 +478,26 @@ insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFech
 values('Gran Vial', 45 , 020,'BONILLA CABA�AS ALEJANDRO',107,CONVERT(date,'17-02-2023',105))
 insert into asignacion (tipoUnidad,economico,tarjeton,nomChofer,fkCorrida,fkFecha)
 values('Gran Vial', 05 , 358,'MENESES MENDOZA EDUARDO ',108,CONVERT(date,'17-02-2023',105))
+-- Permisos
+insert into permisos(permiso)values('Titan');
+insert into permisos(permiso)values('Cronos')
+-- Usuarios
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Titan 1', 'Carlita Collinwood', 'Harberer', 'Tonner', 'Collinwood', 1);
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Titan 2', 'Donall MacKim', 'Scandrett', 'Dinnage', 'MacKim', 1);
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Cronos 1', 'Mayne Blaydes', 'Softley', 'Caspell', 'Blaydes', 3);
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Cronos 2', 'Patsy Maestro', 'Mellers', 'McJury', 'Maestro', 3);
+-- Informe de Limpieza
+insert into Informe_Limpieza ( Fecha_Limpieza, Estación, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values ('1/7/2023', 'Centro HISTORICO', 'false', 'true', 'true', 'false', 'false', 'false','fALTO LAVAR LO BAÑOS', 'Titan 1');
+insert into Informe_Limpieza ( Fecha_Limpieza, Estación, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values ( '12/27/2022', 'Seph', 'true', 'false', 'true', 'true','true', 'true', 'FALTA MAS JABON', 'Titan 2');
+insert into Informe_Limpieza ( Fecha_Limpieza, Estación, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values ( '6/20/2022', 'Finance: Consumer Services', 'false', 'false', 'false', 'false', 'false', 'true', 'PONER MAS CLORO', 'Cronos 1');
+insert into Informe_Limpieza ( Fecha_Limpieza, Estación, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values ( '12/15/2022', 'Department/Specialty Retail Stores', 'true', 'false', 'false', 'false', 'true', 'true', 'EJEMPLO', 'Cronos 2');
+-- informe de incidencias tecnologicas
+insert into Informe_incidencias_tecnologicas (Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ('4/3/2022', '6:20', 'Oilfield Services/Equipment', 'KL4CJDSB5EB819821', 'Wood', 'Rubber', 'Titan 1');
+insert into Informe_incidencias_tecnologicas ( Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ('10/20/2022', '8:58', 'Telecommunications Equipment', 'WAUMF98KX9A247475', 'Wood', 'Steel', 'Titan 2');
+insert into Informe_incidencias_tecnologicas ( Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ( '11/10/2022', '2:49', 'Major Pharmaceuticals', '1GKMCAE36AR742244', 'Granite', 'Wood', 'Cronos 1');
+insert into Informe_incidencias_tecnologicas ( Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ( '8/26/2022', '2:23', 'Precious Metals', 'JN1CV6EK9FM872449', 'Rubber', 'Plexiglass', 'Cronos 2');
+
+
 
 
 
