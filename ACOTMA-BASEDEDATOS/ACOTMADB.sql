@@ -22,21 +22,29 @@ go
 use ACOTMADB
 go
 
+
+
 create table permisos(
-idPermiso int not null primary key identity(1,1),
-permiso varchar(100)
+permiso varchar(100) not null primary key,
 );
 go
+
 create table usuarios(
 usuario varchar(100) not null primary key,
 nombre varchar(100),
 apellidoP varchar(100),
 apellidoM varchar(100),
-pass varchar(100) not null,
-fkPermiso int,
-constraint fkPermisoUsuario foreign key (fkPermiso)references permisos(idPermiso));
-
+pass varchar(100) not null)
 go
+
+create table permisoUsuario(idPermisoUsuario int not null primary key identity(1,1),
+usuario varchar(100),
+permiso varchar(100),
+constraint usuario foreign key(usuario)references usuarios(usuario),
+constraint permiso foreign key(permiso)references permisos(permiso)
+)
+go
+
 create table verificacionDia(
 idVerificacionDia int not null primary key identity(1,1),
 tipoUnidad varchar(100),
@@ -93,8 +101,8 @@ create table Informe_Limpieza (
 	LimpiezaSanitarios VARCHAR(5),
 	Observaciones VARCHAR(1000),
     Usuario VARCHAR (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
-        
 );
+go
 create table Informe_Percances (
 	id_Percance INT PRIMARY KEY NOT NULL identity(1,1),
 	Fecha_Percance DATE NOT NULL,
@@ -113,6 +121,7 @@ create table Informe_Percances (
 	Fotos image,
 	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
 );
+go
 
 create table Informe_incidencias_tecnologicas (
 	ID_InformeIncidencias INT PRIMARY KEY NOT NULL identity(1,1),
@@ -124,6 +133,7 @@ create table Informe_incidencias_tecnologicas (
 	Falla VARCHAR(50),
 	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
 );
+go
 
 
 
@@ -482,10 +492,10 @@ values('Gran Vial', 05 , 358,'MENESES MENDOZA EDUARDO ',108,CONVERT(date,'17-02-
 insert into permisos(permiso)values('Titan');
 insert into permisos(permiso)values('Cronos')
 -- Usuarios
-insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Titan 1', 'Carlita Collinwood', 'Harberer', 'Tonner', 'Collinwood', 1);
-insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Titan 2', 'Donall MacKim', 'Scandrett', 'Dinnage', 'MacKim', 1);
-insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Cronos 1', 'Mayne Blaydes', 'Softley', 'Caspell', 'Blaydes', 3);
-insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass, fkPermiso) values ('Cronos 2', 'Patsy Maestro', 'Mellers', 'McJury', 'Maestro', 3);
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass) values ('Titan 1', 'Carlita Collinwood', 'Harberer', 'Tonner', 'Collinwood');
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass) values ('Titan 2', 'Donall MacKim', 'Scandrett', 'Dinnage', 'MacKim');
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass) values ('Cronos 1', 'Mayne Blaydes', 'Softley', 'Caspell', 'Blaydes');
+insert into Usuarios (Usuario, Nombre, ApellidoP, ApellidoM, Pass) values ('Cronos 2', 'Patsy Maestro', 'Mellers', 'McJury', 'Maestro');
 -- Informe de Limpieza
 insert into Informe_Limpieza ( Fecha_Limpieza, Estación, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values ('1/7/2023', 'Centro HISTORICO', 'false', 'true', 'true', 'false', 'false', 'false','fALTO LAVAR LO BAÑOS', 'Titan 1');
 insert into Informe_Limpieza ( Fecha_Limpieza, Estación, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values ( '12/27/2022', 'Seph', 'true', 'false', 'true', 'true','true', 'true', 'FALTA MAS JABON', 'Titan 2');
@@ -496,7 +506,11 @@ insert into Informe_incidencias_tecnologicas (Fecha_incidencia, Hora_de_registro
 insert into Informe_incidencias_tecnologicas ( Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ('10/20/2022', '8:58', 'Telecommunications Equipment', 'WAUMF98KX9A247475', 'Wood', 'Steel', 'Titan 2');
 insert into Informe_incidencias_tecnologicas ( Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ( '11/10/2022', '2:49', 'Major Pharmaceuticals', '1GKMCAE36AR742244', 'Granite', 'Wood', 'Cronos 1');
 insert into Informe_incidencias_tecnologicas ( Fecha_incidencia, Hora_de_registro, Servicio, VehiculoECO, Equipo_afectado, Falla, Usuario) values ( '8/26/2022', '2:23', 'Precious Metals', 'JN1CV6EK9FM872449', 'Rubber', 'Plexiglass', 'Cronos 2');
-
+-- insertar permiso de usuarios
+insert into permisoUsuario(permiso,usuario)values('Cronos','Cronos 1')
+insert into permisoUsuario(permiso,usuario)values('Cronos','Cronos 2')
+insert into permisoUsuario(permiso,usuario)values('Titan','Titan 1')
+insert into permisoUsuario(permiso,usuario)values('Titan','Titan 2')
 
 
 
