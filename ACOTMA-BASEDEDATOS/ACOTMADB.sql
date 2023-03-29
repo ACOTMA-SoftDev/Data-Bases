@@ -91,8 +91,8 @@ go
 
 create table Informe_Limpieza (
 	IdInformeLimpieza INT PRIMARY KEY NOT NULL identity(1,1),
-	Fecha_Limpieza DATE NOT NULL,
-	Estación VARCHAR(50),
+	Fecha_Limpieza DATETIME NOT NULL,
+	Estacion VARCHAR(50),
 	LimpiezaPiso VARCHAR(5),
 	LimpiezaVidrio VARCHAR(5),
 	LimpiezaAreaServicios VARCHAR(5),
@@ -100,43 +100,134 @@ create table Informe_Limpieza (
 	LimpiezaTorniquetes VARCHAR(5),
 	LimpiezaSanitarios VARCHAR(5),
 	Observaciones VARCHAR(1000),
-    Usuario VARCHAR (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
+        usuario VARCHAR (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
+        
 );
 go
-create table Informe_Percances (
-	id_Percance INT PRIMARY KEY NOT NULL identity(1,1),
-	Fecha_Percance DATE NOT NULL,
+
+SET IDENTITY_INSERT [dbo].[Informe_Limpieza] ON 
+go
+
+insert into Informe_Limpieza (IdInformeLimpieza, Fecha_Limpieza, Estacion, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values (1, '1/7/2023', 'Centro Historico', 'false', 'true', 'true', 'false', 'false', 'false','fALTO LAVAR LO BAÑOS', 'Titan 1');
+insert into Informe_Limpieza (IdInformeLimpieza, Fecha_Limpieza, Estacion, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values (2, '12/27/2022', 'Seph', 'true', 'false', 'true', 'true','true', 'true', 'FALTA MAS JABON', 'Titan 2');
+insert into Informe_Limpieza (IdInformeLimpieza, Fecha_Limpieza, Estacion, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values (3, '6/20/2022', 'Finance: Consumer Services', 'false', 'false', 'false', 'false', 'false', 'true', 'PONER MAS CLORO', 'Cronos 1');
+insert into Informe_Limpieza (IdInformeLimpieza, Fecha_Limpieza, Estacion, LimpiezaPiso, LimpiezaVidrio, LimpiezaAreaServicios, LimpiezaAreaEstructura, LimpiezaTorniquetes, LimpiezaSanitarios, Observaciones, Usuario) values (4, '12/15/2022', 'Department/Specialty Retail Stores', 'true', 'false', 'false', 'false', 'true', 'true', 'EJEMPLO', 'Cronos 2');
+go
+SET IDENTITY_INSERT [dbo].[Informe_Limpieza] OFF
+go
+create table Informe_Accidentes (
+	Id_Percance INT PRIMARY KEY NOT NULL identity(1,1),
+	Fecha_Percance DATETIME NOT NULL,
 	NoEconomico INT,
 	ServicioRuta VARCHAR(100),
 	TipoUnidad VARCHAR(50),
+	Ubicacion VARCHAR(200),
+        Sentido VARCHAR (200),
+        Hora VARCHAR (10),
 	Marca VARCHAR(50),
-	Modelo VARCHAR(50),
+	Submarca VARCHAR(50),
 	Color VARCHAR(50),
 	Placas VARCHAR(50),
+        Anio VARCHAR(20),
 	Conductor VARCHAR(50),
-	Tarjeton INT,
+	Credencial VARCHAR(20),
 	Descripcion VARCHAR(2000),
-	Ubicacion VARCHAR(200),
-	Hora TIME,
-	Fotos image,
+        Lesionados INT,
+        Nombres VARCHAR(3000),
+        Ambulancia VARCHAR (50),
+        SeguridaPublica VARCHAR (100),
+        PatrullaNumero VARCHAR (20),
+        OficialAcargo VARCHAR (50),
+        Seguro  VARCHAR (50),
+        Supervisor VARCHAR (50),
+	Foto_Eco image,
+        Foto_Part image, 
+        Foto_Tarjeton image,
 	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
 );
 go
-
+SET IDENTITY_INSERT [dbo].[Informe_Accidentes] ON
+go
+insert into Informe_Accidentes (Id_Percance, Fecha_percance, NoEconomico, ServicioRuta, TipoUnidad, Ubicacion, Sentido, Hora, Marca, Submarca, Color, Placas, Anio, Conductor, Credencial, Descripcion, Lesionados, Nombres, Ambulancia, SeguridaPublica, PatrullaNumero,  OficialAcargo, Seguro, Supervisor, Foto_Eco, Foto_Part, Foto_Tarjeton, usuario) values (1, '03/28/2023', 1, 'T-101', 'Parador','Tellez','dirrecion actopan','9:20', 'Mazda', 'Crimson','rojo', '30559354','2022', 'ARTHURO', '546', 'Restriction de paso por choque',0,'N/A','N/A','PIBHE','105','Uriel Cruz Vite', 'LIFEofCae','MIreidy','', '', '', 'Titan 1');
+go
+SET IDENTITY_INSERT [dbo].[Informe_Accidentes] OFF
+go
 create table Informe_incidencias_tecnologicas (
-	ID_InformeIncidencias INT PRIMARY KEY NOT NULL identity(1,1),
-	Fecha_incidencia DATE NOT NULL,
-	Hora_de_registro TIME,
+	ID_InformeIncidencias INT PRIMARY KEY  NOT NULL identity(1,1),
+	Fecha_incidencia DATETIME NOT NULL,
 	Servicio VARCHAR(200),
 	VehiculoECO VARCHAR(40),
 	Equipo_afectado VARCHAR(100),
+        Id_equipo_afectado VARCHAR(50),
 	Falla VARCHAR(50),
-	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario)
+        Estado VARCHAR(50),
+	usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario));
+go
+SET IDENTITY_INSERT [dbo].[Informe_incidencias_tecnologicas] ON 
+go
+insert into Informe_incidencias_tecnologicas (ID_InformeIncidencias, Fecha_incidencia, Servicio, VehiculoECO, Equipo_afectado, Id_equipo_afectado, Falla, Estado, usuario) values (1, '4/3/2021','Bicentenario', 'S/N', 'pantalla','G7GF778CG', 'NO PRENDE','EN PROCESO', 'Titan 1');
+insert into Informe_incidencias_tecnologicas (ID_InformeIncidencias, Fecha_incidencia, Servicio, VehiculoECO, Equipo_afectado, Id_equipo_afectado, Falla, Estado, usuario) values (2, '4/3/2021','Tellez', 'S/N', 'pantalla','G7GF778CG', 'NO PRENDE','EN PROCESO', 'Titan 2');
+insert into Informe_incidencias_tecnologicas (ID_InformeIncidencias, Fecha_incidencia, Servicio, VehiculoECO, Equipo_afectado, Id_equipo_afectado, Falla, Estado, usuario) values (3, '4/3/2021','Centro Historico', 'S/N', 'pantalla','G7GF778CG', 'NO PRENDE','EN PROCESO', 'Titan 1');
+insert into Informe_incidencias_tecnologicas (ID_InformeIncidencias, Fecha_incidencia, Servicio, VehiculoECO, Equipo_afectado, Id_equipo_afectado, Falla, Estado, usuario) values (4, '4/3/2021','Bicentenario', 'S/N', 'pantalla','G7GF778CG', 'NO PRENDE','EN PROCESO', 'Titan 2');
+go
+SET IDENTITY_INSERT [dbo].[Informe_incidencias_tecnologicas] OFF
+go
+
+CREATE TABLE MessajePub(
+  Id_Publicacion INT PRIMARY KEY NOT NULL identity(1,1),
+  Fecha_Pub DATETIME,
+  Titulo_Pub varchar (1000),
+  Descripcion_Pub varchar (1000),
+  ImagenP image,
+  usuario Varchar (100) FOREIGN KEY REFERENCES Usuarios(Usuario),
 );
 go
 
+SET IDENTITY_INSERT [dbo].[MessajePub] ON
+go
+insert into MessajePub (Id_Publicacion, Fecha_Pub, Titulo_Pub, Descripcion_Pub, ImagenP, usuario) values (1,'4/3/2022','Cambio de ruta', 'Hubo un cabio de ruta por choque en bicentenario','','Titan 1');
+go
+SET IDENTITY_INSERT [dbo].[MessajePub] OFF
+go
 
 
+CREATE TABLE Asignacion_Radios (
+  Id_asignacionRadio INT PRIMARY KEY NOT NULL identity(1,1), 
+  usuario Varchar (100) FOREIGN KEY REFERENCES usuarios(usuario),
+  Num_Radio Int,
+  Codigo_Radio Varchar(30),
+  Tarjeta_Maestra Varchar(100),
+);
+go
+
+SET IDENTITY_INSERT [dbo].[Asignacion_Radios] ON 
+go
+insert into Asignacion_Radios (Id_asignacionRadio, usuario, Num_Radio, Codigo_Radio, Tarjeta_Maestra) values (1,'TITAN 1',13, '13D1543','543726253');
+insert into Asignacion_Radios (Id_asignacionRadio, usuario, Num_Radio, Codigo_Radio, Tarjeta_Maestra) values (2,'TITAN 2',5, '0542HY6','7987543608');
+go
+SET IDENTITY_INSERT [dbo].[Asignacion_Radios] OFF
+go
+
+create table Registro_Vehicular (
+        Id_RegistroVeh INT PRIMARY KEY NOT NULL identity(1,1), 
+	Fecha DATE,
+	Nombre_solicitante VARCHAR(50),
+	Marca_vehiculo VARCHAR(50),
+	Submarca VARCHAR(50),
+	Placa VARCHAR(50),
+	Tiempo VARCHAR(50),
+	Area_solicitante VARCHAR(50),
+	Actividades_a_realizar VARCHAR(500),
+	Registro_de_kilometraje VARCHAR (100)
+);
+go
+SET IDENTITY_INSERT [dbo].[Registro_Vehicular] ON
+go
+insert into Registro_Vehicular (Id_RegistroVeh, Fecha, Nombre_solicitante, Marca_vehiculo, Submarca, Placa, Tiempo, Area_solicitante, Actividades_a_realizar, Registro_de_kilometraje) values (1,'7/11/2022', 'ALONDRA', 'Cadillac', 'Catera', 'WBA3R5C50FK067652', '4 HOras PM', 'Construction Worker', 'IR POR EL PAN', '17727665443');
+insert into Registro_Vehicular (Id_RegistroVeh, Fecha, Nombre_solicitante, Marca_vehiculo, Submarca, Placa, Tiempo, Area_solicitante, Actividades_a_realizar, Registro_de_kilometraje) values (2,'2/11/2022', 'CRUZ', 'Cadillac', 'Catera', 'WBA3R5C50FK067652', '1O HORAS', 'Construction Worker', 'IR POR EL PAN', '17727665443');
+go
+SET IDENTITY_INSERT [dbo].[Registro_Vehicular] ON 
+go
 --INSERTAR EN TABLAS--
 use ACOTMADB
 
@@ -511,8 +602,4 @@ insert into permisoUsuario(permiso,usuario)values('Cronos','Cronos 1')
 insert into permisoUsuario(permiso,usuario)values('Cronos','Cronos 2')
 insert into permisoUsuario(permiso,usuario)values('Titan','Titan 1')
 insert into permisoUsuario(permiso,usuario)values('Titan','Titan 2')
-
-
-
-
 
